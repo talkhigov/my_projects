@@ -42,7 +42,7 @@ positions = []
 def position():
     display_board()
     position = None
-    while position != 1 and position != 2 and position != 3 and position != 4 and position != 5 and position != 6 and position != 7 and position != 8 and position != 9:
+    while position not in [1,2,3,4,5,6,7,8,9] or not space_check(board, position):
         try:
             position = int(input('Ваш ход 1-9: '))
             positions.append(position)
@@ -70,10 +70,8 @@ def win_check(board):
     elif board[1] == ' 0 ' and board[2] == ' 0 ' and board[3] == ' 0 ' or  board[4] == ' 0 ' and board[5] == ' 0 ' and board[6] == ' 0 ' or board[7] == ' 0 ' and board[8] == ' 0 ' and board[9] == ' 0 ' or board[1] == ' 0 ' and board[4] == ' 0 ' and board[7] == ' 0 ' or board[2] == ' 0 ' and board[5] == ' 0 ' and board[8] == ' 0 ' or board[3] == ' 0 ' and board[6] == ' 0 ' and board[9] == ' 0 ' or board[1] == ' 0 ' and board[5] == ' 0 ' and board[9] == ' 0 ' or board[3] == ' 0 ' and board[5] == ' 0 ' and board[7] == ' 0 ':
         return True
 
-def space_check():
-    for i in positions:
-        if positions.count(i) > 1:
-            return True
+def space_check(board, position):
+    return board[position] == '   '
     
 def full_board_check(board):
     if board[1] != '   ' and board[2] != '   ' and board[3] != '   ' and board[4] != '   ' and board[5] != '   ' and board[6] != '   ' and board[7] != '   ' and board[8] != '   ' and board[9] != '   ':
@@ -87,7 +85,7 @@ def replay():
             return True
 
     
-# print('Добро пожаловать в игру Икс-Нолик!')
+print('Добро пожаловать в игру Икс-Нолик!')
 while True:       
     place_marker(board, player_input(), position())
     if win_check(board):
