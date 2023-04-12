@@ -80,25 +80,31 @@ def full_board_check(board):
         return True
     
 def replay():
-    answer = input('Хотите ли вы играть снова? Yes or No: ').upper()
-    if answer == 'YES':
-        return True
+    answer = None
+    while answer != 'YES' and answer != 'NO':
+        answer = input('Хотите ли вы играть снова? Yes or No: ').upper()
+        if answer == 'YES':
+            return True
+
     
-print('Добро пожаловать в игру Икс-Нолик!')
+# print('Добро пожаловать в игру Икс-Нолик!')
 while True:       
     place_marker(board, player_input(), position())
-    if space_check():
-        print('Ячейка занята. Выберите свободную.')
-    elif win_check(board):
+    if win_check(board):
         display_board()
         print('ВЫ ВЫИГРАЛИ!!!')
-        break
+        if replay():
+            for i in range(1, 10):
+                board[i] = '   '
+            place_marker(board, player_input(), position())
+        else:
+            break
     elif full_board_check(board):
         display_board()
         print('НИЧЬЯ!')
-        break
-
-    
-# position()
-# player_input()
-# space_check()
+        if replay():
+            for i in range(1, 10):
+                board[i] = '   '
+            place_marker(board, player_input(), position())
+        else:
+            break
